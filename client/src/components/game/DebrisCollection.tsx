@@ -34,7 +34,7 @@ export default function DebrisCollection() {
     setPhase 
   } = useSpaceGame();
   
-  const { playHit, playSuccess } = useAudio();
+  const { playHit, playSuccess, playSpaceShoot } = useAudio();
   
   const [playerPos, setPlayerPos] = useState({ x: 400, y: 300 });
   const [keys, setKeys] = useState<Set<string>>(new Set());
@@ -295,11 +295,13 @@ export default function DebrisCollection() {
             if (selectedTool === 'magnetic-collector') {
               incrementDebris();
               playSuccess();
+              playSpaceShoot(); // Add space collection sound
               gameObjectsRef.current.splice(index, 1);
             } else {
               // Other tools
               incrementDebris();
               playSuccess();
+              playSpaceShoot(); // Add space collection sound
               gameObjectsRef.current.splice(index, 1);
             }
           } else if (obj.type === 'satellite') {

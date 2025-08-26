@@ -3,7 +3,7 @@ import { useAudio } from "../../lib/stores/useAudio";
 
 export default function ToolSelection() {
   const { setPhase, setTool } = useSpaceGame();
-  const { playSuccess } = useAudio();
+  const { playSuccess, playSpaceShoot } = useAudio();
 
   const tools: { id: Tool; name: string; description: string; icon: string }[] = [
     {
@@ -34,6 +34,7 @@ export default function ToolSelection() {
 
   const handleToolSelect = (tool: Tool) => {
     playSuccess();
+    playSpaceShoot(); // Add space selection sound
     setTool(tool);
     setPhase("planet-selection");
   };

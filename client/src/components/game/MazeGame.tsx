@@ -12,7 +12,7 @@ interface MazeCell {
 export default function MazeGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { selectedTool, selectedPlanet, difficulty, setPhase, setToolRetrieved } = useSpaceGame();
-  const { playSuccess, playHit } = useAudio();
+  const { playSuccess, playHit, playMazeMove } = useAudio();
   
   const [playerPos, setPlayerPos] = useState({ x: 0, y: 0 });
   const [toolPos] = useState({ x: 0, y: 0 }); // Will be set based on maze size
@@ -157,6 +157,7 @@ export default function MazeGame() {
 
       if (canMove) {
         setPlayerPos({ x: newX, y: newY });
+        playMazeMove(); // Add movement sound effect
         
         // Check if player reached the tool
         if (newX === mazeSize - 1 && newY === mazeSize - 1) {

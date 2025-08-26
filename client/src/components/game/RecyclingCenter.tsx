@@ -6,7 +6,7 @@ type RecyclingOption = "metal-rods" | "storage-containers" | "spacecraft-parts" 
 
 export default function RecyclingCenter() {
   const { collectedDebris, addScore, setPhase } = useSpaceGame();
-  const { playSuccess } = useAudio();
+  const { playSuccess, playRecycle } = useAudio();
   
   const [selectedOption, setSelectedOption] = useState<RecyclingOption | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -51,6 +51,7 @@ export default function RecyclingCenter() {
     const totalPoints = collectedDebris * 250;
     addScore(totalPoints);
     playSuccess();
+    playRecycle(); // Add recycling process sound
     
     // Processing animation
     setTimeout(() => {

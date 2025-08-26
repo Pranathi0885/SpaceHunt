@@ -4,7 +4,7 @@ import { useAudio } from "../../lib/stores/useAudio";
 
 export default function PlanetSelection() {
   const { selectedTool, setPhase, setPlanet, setDifficulty } = useSpaceGame();
-  const { playSuccess } = useAudio();
+  const { playSuccess, playSpaceShoot } = useAudio();
   const [showDifficultySelect, setShowDifficultySelect] = useState(false);
   const [selectedPlanetId, setSelectedPlanetId] = useState<Planet | null>(null);
 
@@ -36,6 +36,7 @@ export default function PlanetSelection() {
   const handleDifficultySelect = (difficulty: Difficulty) => {
     if (selectedPlanetId) {
       playSuccess();
+      playSpaceShoot(); // Add space travel sound
       setPlanet(selectedPlanetId);
       setDifficulty(difficulty);
       setPhase("maze-game");

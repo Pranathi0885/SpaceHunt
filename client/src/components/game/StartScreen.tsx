@@ -105,7 +105,7 @@ export default function StartScreen() {
           <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-md rounded-2xl p-8 max-w-2xl mx-4 border border-cyan-400/30 shadow-2xl">
             <div className="text-center mb-6">
               <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-4">
-                🛰️ MISSION BRIEFING 🛰️
+                📖 STORY TIME 📖
               </h3>
             </div>
             

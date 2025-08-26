@@ -129,12 +129,12 @@ export default function DebrisCollection() {
   // Handle keyboard input
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      setKeys(prev => new Set([...prev, e.key]));
+      setKeys(prev => new Set(Array.from(prev).concat([e.key])));
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
       setKeys(prev => {
-        const newKeys = new Set([...prev]);
+        const newKeys = new Set(Array.from(prev));
         newKeys.delete(e.key);
         return newKeys;
       });

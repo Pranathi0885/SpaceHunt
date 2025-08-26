@@ -114,35 +114,48 @@ export default function MazeGame() {
   // Handle keyboard input
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (gameWon) return;
+      if (gameWon || maze.length === 0) return;
 
       let newX = playerPos.x;
       let newY = playerPos.y;
+      let canMove = false;
 
       switch (e.key) {
         case "ArrowUp":
         case "w":
         case "W":
-          if (!maze[playerPos.y]?.[playerPos.x]?.walls.top) newY--;
+          if (playerPos.y > 0 && !maze[playerPos.y][playerPos.x].walls.top) {
+            newY--;
+            canMove = true;
+          }
           break;
         case "ArrowDown":
         case "s":
         case "S":
-          if (!maze[playerPos.y]?.[playerPos.x]?.walls.bottom) newY++;
+          if (playerPos.y < mazeSize - 1 && !maze[playerPos.y][playerPos.x].walls.bottom) {
+            newY++;
+            canMove = true;
+          }
           break;
         case "ArrowLeft":
         case "a":
         case "A":
-          if (!maze[playerPos.y]?.[playerPos.x]?.walls.left) newX--;
+          if (playerPos.x > 0 && !maze[playerPos.y][playerPos.x].walls.left) {
+            newX--;
+            canMove = true;
+          }
           break;
         case "ArrowRight":
         case "d":
         case "D":
-          if (!maze[playerPos.y]?.[playerPos.x]?.walls.right) newX++;
+          if (playerPos.x < mazeSize - 1 && !maze[playerPos.y][playerPos.x].walls.right) {
+            newX++;
+            canMove = true;
+          }
           break;
       }
 
-      if (newX >= 0 && newX < mazeSize && newY >= 0 && newY < mazeSize) {
+      if (canMove) {
         setPlayerPos({ x: newX, y: newY });
         
         // Check if player reached the tool

@@ -9,10 +9,13 @@ export default function Graveyard() {
   const [debrisRemaining, setDebrisRemaining] = useState(collectedDebris);
   const [selectedGrave, setSelectedGrave] = useState<number | null>(null);
 
-  const graves = Array.from({ length: 5 }, (_, i) => ({
-    id: i,
-    occupied: false
-  }));
+  const [graves, setGraves] = useState(
+    Array.from({ length: 5 }, (_, i) => ({
+      id: i,
+      occupied: false,
+      debrisCount: 0
+    }))
+  );
 
   const handleGraveClick = (graveIndex: number) => {
     if (debrisRemaining > 0) {
@@ -21,13 +24,17 @@ export default function Graveyard() {
       addScore(150); // 150 points for disposal
       playSuccess();
       
+      // Update grave with debris
+      setGraves(prev => prev.map((grave, i) => 
+        i === graveIndex ? { ...grave, occupied: true, debrisCount: grave.debrisCount + 1 } : grave
+      ));
+      
       // Animation feedback
       setTimeout(() => setSelectedGrave(null), 500);
       
       // If all debris disposed, show completion
       if (debrisRemaining === 1) {
         setTimeout(() => {
-          alert(`All debris disposed! You earned ${collectedDebris * 150} points!`);
           setPhase("start");
         }, 1000);
       }
@@ -62,8 +69,8 @@ export default function Graveyard() {
         <p className="text-gray-300">Click on any grave to dispose of debris (+150 points each)</p>
       </div>
 
-      {/* Graveyard */}
-      <div className="relative z-10 flex gap-8 mb-8">
+      {/* Space Graveyard */}
+      <div className="relative z-10 flex gap-6 mb-8">
         {graves.map((grave, index) => (
           <div
             key={grave.id}
@@ -72,25 +79,40 @@ export default function Graveyard() {
               selectedGrave === index ? 'animate-bounce' : ''
             } ${debrisRemaining > 0 ? 'hover:brightness-125' : 'opacity-50 cursor-not-allowed'}`}
           >
-            {/* Grave mound */}
-            <div className="w-16 h-12 bg-gradient-to-b from-gray-600 to-gray-800 rounded-t-full mb-2"></div>
+            {/* Space grave mound with cosmic effect */}
+            <div className="w-20 h-14 bg-gradient-to-b from-purple-600 via-gray-700 to-gray-900 rounded-t-full mb-2 border border-purple-400/30">
+              {/* Cosmic particles effect */}
+              <div className="w-full h-full rounded-t-full bg-gradient-to-b from-cyan-400/20 to-transparent animate-pulse"></div>
+            </div>
             
-            {/* Gravestone */}
-            <div className="w-12 h-16 bg-gradient-to-b from-gray-400 to-gray-600 rounded-t-lg mx-auto relative">
-              {/* Cross on gravestone */}
-              <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-white text-xs">✝</div>
+            {/* Space gravestone */}
+            <div className="w-14 h-20 bg-gradient-to-b from-gray-300 via-gray-500 to-gray-800 rounded-t-lg mx-auto relative border border-gray-400">
+              {/* Space debris symbol */}
+              <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-cyan-400 text-sm">🛰️</div>
               
               {/* Grave number */}
-              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-xs font-bold">
+              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-xs font-bold bg-gray-800/80 px-1 rounded">
                 {index + 1}
               </div>
+              
+              {/* Debris count indicator */}
+              {grave.debrisCount > 0 && (
+                <div className="absolute top-6 left-1/2 transform -translate-x-1/2 text-yellow-400 text-xs font-bold">
+                  {grave.debrisCount}
+                </div>
+              )}
             </div>
             
             {/* Disposal effect */}
             {selectedGrave === index && (
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 text-green-400 font-bold animate-pulse">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 text-green-400 font-bold animate-pulse text-lg">
                 +150
               </div>
+            )}
+            
+            {/* Cosmic glow for occupied graves */}
+            {grave.occupied && (
+              <div className="absolute inset-0 bg-purple-400/10 rounded-full blur-sm animate-pulse"></div>
             )}
           </div>
         ))}
@@ -101,6 +123,11 @@ export default function Graveyard() {
 
       {debrisRemaining === 0 && (
         <div className="relative z-10 mt-8 text-center">
+          <div className="bg-green-800/30 backdrop-blur-sm rounded-xl p-6 mb-6 max-w-md mx-auto">
+            <h3 className="text-2xl font-bold text-green-400 mb-2">All Debris Disposed!</h3>
+            <p className="text-white mb-2">You earned <span className="text-yellow-400 font-bold">{collectedDebris * 150}</span> points!</p>
+            <p className="text-gray-300 text-sm">The space is now safer thanks to your efforts!</p>
+          </div>
           <button
             onClick={() => setPhase("start")}
             className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white text-lg font-bold rounded-xl hover:from-green-500 hover:to-green-600 transform hover:scale-105 transition-all duration-300 shadow-xl"

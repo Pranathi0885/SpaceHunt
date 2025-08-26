@@ -67,7 +67,7 @@ export default function StartScreen() {
           SPACE HUNT MISSION
         </h1>
         
-        <p className="text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl md:text-2xl text-white font-normal max-w-2xl mx-auto leading-relaxed">
           An Epic Orbital Adventure Awaits!
         </p>
 

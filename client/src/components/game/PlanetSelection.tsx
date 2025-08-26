@@ -1,9 +1,12 @@
-import { useSpaceGame, Planet } from "../../lib/stores/useSpaceGame";
+import { useState } from "react";
+import { useSpaceGame, Planet, Difficulty } from "../../lib/stores/useSpaceGame";
 import { useAudio } from "../../lib/stores/useAudio";
 
 export default function PlanetSelection() {
-  const { selectedTool, setPhase, setPlanet } = useSpaceGame();
+  const { selectedTool, setPhase, setPlanet, setDifficulty } = useSpaceGame();
   const { playSuccess } = useAudio();
+  const [showDifficultySelect, setShowDifficultySelect] = useState(false);
+  const [selectedPlanetId, setSelectedPlanetId] = useState<Planet | null>(null);
 
   const planets: { id: Planet; name: string; tool: string; color: string; size: string }[] = [
     { id: "mars", name: "Mars", tool: "Space Net", color: "bg-red-500", size: "w-20 h-20" },
@@ -25,11 +28,63 @@ export default function PlanetSelection() {
   const handlePlanetSelect = (planet: Planet) => {
     const planetTool = getToolForPlanet(planet);
     if (planetTool === selectedTool) {
+      setSelectedPlanetId(planet);
+      setShowDifficultySelect(true);
+    }
+  };
+
+  const handleDifficultySelect = (difficulty: Difficulty) => {
+    if (selectedPlanetId) {
       playSuccess();
-      setPlanet(planet);
+      setPlanet(selectedPlanetId);
+      setDifficulty(difficulty);
       setPhase("maze-game");
     }
   };
+
+  if (showDifficultySelect) {
+    const difficulties: { id: Difficulty; name: string; description: string; color: string }[] = [
+      { id: "easy", name: "Easy", description: "Small maze, perfect for beginners", color: "from-green-600 to-green-700" },
+      { id: "medium", name: "Medium", description: "Moderate challenge with balanced gameplay", color: "from-yellow-600 to-yellow-700" },
+      { id: "hard", name: "Hard", description: "Large maze for experienced players", color: "from-red-600 to-red-700" }
+    ];
+
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center p-8">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Select Difficulty Level
+          </h2>
+          <p className="text-lg text-gray-300">
+            Destination: <span className="text-cyan-400 font-bold capitalize">{selectedPlanetId}</span>
+          </p>
+          <p className="text-sm text-gray-400 mt-2">Choose your maze difficulty for tool retrieval</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full mb-8">
+          {difficulties.map((difficulty) => (
+            <div
+              key={difficulty.id}
+              onClick={() => handleDifficultySelect(difficulty.id)}
+              className={`bg-gradient-to-br ${difficulty.color} backdrop-blur-sm rounded-xl p-6 cursor-pointer transform hover:scale-105 transition-all duration-300 hover:shadow-2xl border border-gray-600 hover:border-white`}
+            >
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-white mb-2">{difficulty.name}</h3>
+                <p className="text-gray-200 text-sm">{difficulty.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button
+          onClick={() => setShowDifficultySelect(false)}
+          className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+        >
+          ← Back to Planets
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-8">

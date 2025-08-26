@@ -5,6 +5,7 @@ export type GamePhase =
   | "start" 
   | "tool-selection" 
   | "planet-selection" 
+  | "space-travel"
   | "maze-game" 
   | "debris-collection" 
   | "end-game" 

@@ -39,7 +39,7 @@ export default function PlanetSelection() {
       playSpaceShoot(); // Add space travel sound
       setPlanet(selectedPlanetId);
       setDifficulty(difficulty);
-      setPhase("maze-game");
+      setPhase("space-travel");
     }
   };
 

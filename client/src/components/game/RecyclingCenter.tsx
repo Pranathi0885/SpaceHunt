@@ -85,6 +85,19 @@ export default function RecyclingCenter() {
           <div className="bg-green-800/30 backdrop-blur-sm rounded-xl p-8 max-w-md mx-auto mb-8">
             <div className="text-6xl mb-4">{option.resultIcon}</div>
             <h3 className="text-2xl font-bold text-white mb-4">{option.name} Created!</h3>
+            
+            {/* Star rating for recycling */}
+            <div className="mb-4">
+              <div className="flex justify-center items-center gap-1 mb-2">
+                {Array.from({ length: 3 }, (_, i) => (
+                  <span key={i} className="text-3xl text-yellow-400 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}>
+                    ⭐
+                  </span>
+                ))}
+              </div>
+              <p className="text-yellow-300 font-bold">Perfect Recycling! 🏆</p>
+            </div>
+            
             <p className="text-green-300 text-lg mb-4">
               {getThankYouMessage(selectedOption)}
             </p>

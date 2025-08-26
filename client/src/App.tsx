@@ -4,6 +4,7 @@ import { useSpaceGame } from "./lib/stores/useSpaceGame";
 import StartScreen from "./components/game/StartScreen";
 import ToolSelection from "./components/game/ToolSelection";
 import PlanetSelection from "./components/game/PlanetSelection";
+import SpaceTravel from "./components/game/SpaceTravel";
 import MazeGame from "./components/game/MazeGame";
 import DebrisCollection from "./components/game/DebrisCollection";
 import EndGame from "./components/game/EndGame";
@@ -99,6 +100,8 @@ function App() {
         return <ToolSelection />;
       case 'planet-selection':
         return <PlanetSelection />;
+      case 'space-travel':
+        return <SpaceTravel />;
       case 'maze-game':
         return <MazeGame />;
       case 'debris-collection':

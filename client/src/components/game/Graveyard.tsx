@@ -185,6 +185,19 @@ export default function Graveyard() {
         <div className="relative z-10 mt-8 text-center">
           <div className="bg-green-800/30 backdrop-blur-sm rounded-xl p-6 mb-6 max-w-md mx-auto">
             <h3 className="text-2xl font-bold text-green-400 mb-2">All Debris Disposed!</h3>
+            
+            {/* Star rating for disposal */}
+            <div className="mb-4">
+              <div className="flex justify-center items-center gap-1 mb-2">
+                {Array.from({ length: 3 }, (_, i) => (
+                  <span key={i} className="text-2xl text-yellow-400 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}>
+                    ⭐
+                  </span>
+                ))}
+              </div>
+              <p className="text-yellow-300 font-bold">Disposal Mission Complete!</p>
+            </div>
+            
             <p className="text-white mb-2">You earned <span className="text-yellow-400 font-bold">{collectedDebris * 150}</span> points!</p>
             <p className="text-gray-300 text-sm">The space is now safer thanks to your efforts!</p>
           </div>

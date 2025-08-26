@@ -1,0 +1,57 @@
+Orbital Scrap Metal – The Video Game V2.0
+The Challenge
+Orbital debris is an ever-increasing threat to space assets such as Earth observation satellites and space stations and
+explorers. Your challenge is to create an orbital debris collection videogame web-app and imagine the possibilities of
+new companies that collect orbital debris and salvage the scrap metal to manufacture new products in space.
+Background:
+Nuts, bolts, and broken pieces of satellites are a few of the several thousand items known as orbital debris or space junk.
+Traveling around the Earth at speeds of up to about 17,000 miles per hour, space junk poses a threat to satellites and
+space stations.
+The awareness of hundreds of people around the world regarding the threat of orbital debris. A total of 133 teams
+registered to participate in the challenge. This year, your challenge is to create a video game web-app that can
+further educate the public about the problem of orbital debris and inspire people to think about how to capture
+and dispose of it, and maybe even profit from it! Can you imagine a world where future generations of space
+entrepreneurs may be able to start a new space industry by collecting and processing orbital debris to manufacture
+products in space?
+This year, beginning teams can use free 2D bitmap game development apps for creating click-based games. A simple
+approach to simulating a circular orbit is to use the circle equation in a spreadsheet then put those numbers in an array
+and step through the array. Intermediate teams can use 3D JavaScript code libraries and free game engines. Researching
+Kepler’s equations and elliptical orbit propagation can provide examples of how to write a more advanced orbital
+propagator for a 3D game. Advanced teams can research two-line element (TLE) based orbital propagators to find
+examples.
+
+
+I want the game to be like the following in the start. The player is made to sit in a rocket in the planet earth. The start to play option should be given in the beginning. When he clicks play, he has to choose a tool that he wants to collect the debris with i.e magnetic collector, net, robotic hand and laser. Each tool will be hidden in a different planet. The player selects the tool he wants is taken to the planet where that tool is hidden. Mars has a net, Jupiter has magnetic collector, Saturn has robotic hand and Uranus has laser. There should be 5 different planets in space along with earth. The rocket goes to the planet where the selected tool is. There should be a challenge game to retrieve this tool like cut the rope game but instead of candy, there should be the tool. As soon as the tool is retrieved, the player gets a pop on screen that he is successful in retrieving the tool and a command to continue to go to space is shown. Now in the space, there are debris and satellites. The player collects the debris with the help of the tool. If he collects satellite, the satellite should show the following pop up : "Oops I'm a satellite :( !! Please collect the debris cause it'll harm me :)". The debris size varies and based on the size, the points are given. Postive points for collecting debris and negative points for collecting satellites. There should be a time limit of 55 secs to collect as much debris as possible only within the time limit. After collecting the debris, the player is given two options on the screen i.e disposing/burying and recycling. For disposing/burying, he is supposed to pass the debris through atmosphere on earth so that it is burnt completely and no parts are left. For recycling, he can send it to earth and that material can be turned into the following chosen options i.e metal rods, cans, another rocket construction etc. For recycling, more points should be given. In the end, the player will be given the score.
+
+Give instructions to play in the starting of the game in few short points
+
+give sound affects and reduce the travelling time. Give the planets with tools as destination mission option.
+
+Name the game as Space hunt mission and make it colorful and creative. It looks dull right now. Make the game look exciting and fun
+
+Change the font style of epic orbital adventure awaits in the start. Keep it straight. Design the satellites properly. Make it look like satellite. It should be a 2D game. The debris are screws, bolts, broken satellite parts. The net logo and magnetic collector logo should be swapped. While choosing the planets, give heading as Choose your destination and later give option for selecting planets as start the mission. Instead of cut the rope, design a small simple game to retrieve the tool (an obstacle game).
+
+The satellites and debris should move in elliptical and orbital ways
+
+the page seems too big. organize it properly and for selection of planets, give heading as "Choose your destination". "Select this mission" command for planets. The obstacle tool game isn't good. Give a maze game to retrieve the tool. The tool can move front, back and side ways to be retrieved. Make sure that all the contents in the page are shown properly with proper spacing.
+
+Reduce the speed of the satellites and debris in the space
+
+Give 150 points for disposing and 250 points for recycling. After selecting disposing/burying option, the player should be taken to the same graveyard and there should be five graves to dispose these debris. By clicking on any grave, the debris gets buried. And the player gets points.
+Now if they select recycle, there should be 4 options given that says choose the option you want to recycle it into i.e metal rods, storage containers, new spacecraft parts and space station components. If they click on metal rod option, a metal rod is prepared in the end and it is shown. The pop up should say "Thank you for recycling me into a metal rod!".
+
+If they click on storage container option, a storage container is prepared in the end and it is shown. The pop up should say "Thank you for recycling me into a storage container!". If they click on new spacecraft parts option, a new spacecraft part is prepared in the end and it is shown. The pop up should say "Thank you for recycling me into a new spacecraft part!". If they click onspace station components option, a space station components is prepared in the end and it is shown. The pop up should say "Thank you for recycling me into a space station component!".
+
+Reduce the planet selection box size and keep a heading on top of the page as "Select your destination"
+
+Give huge maze for tool retrievel game
+
+Give space shooting sound affects and fun sounds for tool retrieval game and debris collection game. Don't make the maze complex. The difficulty level of the maze game should be medium
+
+Give difficulty level selection options for tool retrieval game. Easy, medium and hard. Based on the difficulty level selected, design the maze for tool retrieval.
+
+Reduce the debris speed and satellite speed in the debris collection game.
+
+Unlimited debris should be moving in the space during the collection game. Design a space graveyard for the disposal of the debris. The debris in the space game should be nuts, screws, bolts, switch board, glass and metal pieces. The magnetic collector should attract the debris when it is taken near the debris and should repel the satellites.
+
+The time limit should be exactly 55 secs for debris collection. Reduce the motion speed of debris and satellite. Only when satellite is touched by the tool, the tool should give pop up message. The pop up message should only pop up of 1 sec and go. Design a graveyard is space with 5 graves. If the graveyard is clicked, the debris should be disposed. Per click, only one debris should be disposed. There is no difficulty level for debris collection game.

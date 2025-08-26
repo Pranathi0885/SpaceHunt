@@ -34,11 +34,12 @@ export default function DebrisCollection() {
     setPhase 
   } = useSpaceGame();
   
-  const { playHit, playSuccess, playSpaceShoot } = useAudio();
+  const { playHit, playSuccess, playSpaceShoot, playWarning, playExplosion } = useAudio();
   
   const [playerPos, setPlayerPos] = useState({ x: 400, y: 300 });
   const [keys, setKeys] = useState<Set<string>>(new Set());
   const [showSatelliteMessage, setShowSatelliteMessage] = useState(false);
+  const [satelliteMessageText, setSatelliteMessageText] = useState('');
 
   const CANVAS_WIDTH = 800;
   const CANVAS_HEIGHT = 600;
@@ -307,11 +308,22 @@ export default function DebrisCollection() {
           } else if (obj.type === 'satellite') {
             // Handle satellite collision
             if (selectedTool === 'magnetic-collector') {
-              // Magnetic collector repels satellites - no collision
+              // Magnetic collector repels satellites - show warning but no penalty
+              setSatelliteMessageText("Magnetic field repelling satellite! Stay clear!");
+              setShowSatelliteMessage(true);
+              playWarning(); // Use warning sound for magnetic repulsion
+              setTimeout(() => setShowSatelliteMessage(false), 1000);
               return;
             } else {
               incrementSatellites();
-              playHit();
+              playExplosion(); // Use explosion sound for satellite collision
+              const messages = [
+                "Oops I'm a satellite :( !! Please collect the debris cause it'll harm me :)",
+                "Careful! I'm a working satellite - collect debris instead!",
+                "I'm not debris! Please avoid satellites like me!",
+                "Satellite collision! Focus on space debris collection!"
+              ];
+              setSatelliteMessageText(messages[Math.floor(Math.random() * messages.length)]);
               setShowSatelliteMessage(true);
               setTimeout(() => setShowSatelliteMessage(false), 1000);
             }
@@ -518,8 +530,9 @@ export default function DebrisCollection() {
         />
         
         {showSatelliteMessage && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-600 text-white p-4 rounded-lg">
-            <p>Oops I'm a satellite :( !! Please collect the debris cause it'll harm me :)</p>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-600/90 backdrop-blur-sm text-white p-4 rounded-xl border-2 border-red-400 shadow-2xl max-w-md text-center animate-pulse">
+            <div className="text-2xl mb-2">⚠️ 🛰️ ⚠️</div>
+            <p className="font-bold">{satelliteMessageText}</p>
           </div>
         )}
       </div>

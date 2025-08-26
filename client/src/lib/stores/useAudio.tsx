@@ -8,6 +8,8 @@ interface AudioState {
   mazeSound: HTMLAudioElement | null;
   graveyardSound: HTMLAudioElement | null;
   recycleSound: HTMLAudioElement | null;
+  warningSound: HTMLAudioElement | null;
+  explosionSound: HTMLAudioElement | null;
   isMuted: boolean;
   
   // Setter functions
@@ -18,6 +20,8 @@ interface AudioState {
   setMazeSound: (sound: HTMLAudioElement) => void;
   setGraveyardSound: (sound: HTMLAudioElement) => void;
   setRecycleSound: (sound: HTMLAudioElement) => void;
+  setWarningSound: (sound: HTMLAudioElement) => void;
+  setExplosionSound: (sound: HTMLAudioElement) => void;
   
   // Control functions
   toggleMute: () => void;
@@ -27,6 +31,8 @@ interface AudioState {
   playMazeMove: () => void;
   playGraveyard: () => void;
   playRecycle: () => void;
+  playWarning: () => void;
+  playExplosion: () => void;
 }
 
 export const useAudio = create<AudioState>((set, get) => ({
@@ -37,6 +43,8 @@ export const useAudio = create<AudioState>((set, get) => ({
   mazeSound: null,
   graveyardSound: null,
   recycleSound: null,
+  warningSound: null,
+  explosionSound: null,
   isMuted: true, // Start muted by default
   
   setBackgroundMusic: (music) => set({ backgroundMusic: music }),
@@ -46,6 +54,8 @@ export const useAudio = create<AudioState>((set, get) => ({
   setMazeSound: (sound) => set({ mazeSound: sound }),
   setGraveyardSound: (sound) => set({ graveyardSound: sound }),
   setRecycleSound: (sound) => set({ recycleSound: sound }),
+  setWarningSound: (sound) => set({ warningSound: sound }),
+  setExplosionSound: (sound) => set({ explosionSound: sound }),
   
   toggleMute: () => {
     const { isMuted } = get();
@@ -132,6 +142,28 @@ export const useAudio = create<AudioState>((set, get) => ({
       recycleSound.volume = 0.4;
       recycleSound.play().catch(error => {
         console.log("Recycle sound play prevented:", error);
+      });
+    }
+  },
+  
+  playWarning: () => {
+    const { warningSound, isMuted } = get();
+    if (warningSound && !isMuted) {
+      const soundClone = warningSound.cloneNode() as HTMLAudioElement;
+      soundClone.volume = 0.5;
+      soundClone.play().catch(error => {
+        console.log("Warning sound play prevented:", error);
+      });
+    }
+  },
+  
+  playExplosion: () => {
+    const { explosionSound, isMuted } = get();
+    if (explosionSound && !isMuted) {
+      const soundClone = explosionSound.cloneNode() as HTMLAudioElement;
+      soundClone.volume = 0.4;
+      soundClone.play().catch(error => {
+        console.log("Explosion sound play prevented:", error);
       });
     }
   }

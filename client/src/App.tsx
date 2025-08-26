@@ -20,7 +20,9 @@ function App() {
     setSpaceShootSound,
     setMazeSound,
     setGraveyardSound,
-    setRecycleSound
+    setRecycleSound,
+    setWarningSound,
+    setExplosionSound
   } = useAudio();
 
   // Create synthetic space sounds using Web Audio API
@@ -72,6 +74,8 @@ function App() {
     const mazeSound = createSpaceSound(400, 0.1, 'sine');
     const graveyardSound = createSpaceSound(200, 0.8, 'sine');
     const recycleSound = createSpaceSound(600, 0.5, 'sawtooth');
+    const warningSound = createSpaceSound(300, 0.6, 'sawtooth');
+    const explosionSound = createSpaceSound(150, 1.0, 'square');
     
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.3;
@@ -83,7 +87,9 @@ function App() {
     setMazeSound(mazeSound);
     setGraveyardSound(graveyardSound);
     setRecycleSound(recycleSound);
-  }, [setBackgroundMusic, setHitSound, setSuccessSound, setSpaceShootSound, setMazeSound, setGraveyardSound, setRecycleSound]);
+    setWarningSound(warningSound);
+    setExplosionSound(explosionSound);
+  }, [setBackgroundMusic, setHitSound, setSuccessSound, setSpaceShootSound, setMazeSound, setGraveyardSound, setRecycleSound, setWarningSound, setExplosionSound]);
 
   const renderCurrentPhase = () => {
     switch (gamePhase) {

@@ -21,12 +21,79 @@ export default function EndGame() {
     resetGame();
   };
 
+  // Calculate star rating based on score
+  const getStarRating = (score: number) => {
+    if (score >= 1000) return 3;
+    if (score >= 750) return 2.5;
+    if (score >= 500) return 2;
+    return 1;
+  };
+
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <span key={i} className="text-6xl text-yellow-400 drop-shadow-lg animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}>
+          ⭐
+        </span>
+      );
+    }
+    
+    // Add half star if needed
+    if (hasHalfStar) {
+      stars.push(
+        <span key="half" className="text-6xl text-yellow-400 drop-shadow-lg animate-pulse" style={{ animationDelay: `${fullStars * 0.2}s` }}>
+          🌟
+        </span>
+      );
+    }
+    
+    // Add empty stars to make total of 3
+    const totalStars = hasHalfStar ? fullStars + 1 : fullStars;
+    for (let i = totalStars; i < 3; i++) {
+      stars.push(
+        <span key={`empty-${i}`} className="text-6xl text-gray-500 drop-shadow-lg opacity-50">
+          ⭐
+        </span>
+      );
+    }
+    
+    return stars;
+  };
+
+  const getPerformanceMessage = (rating: number) => {
+    if (rating >= 3) return "🏆 LEGENDARY SPACE CLEANER! 🏆";
+    if (rating >= 2.5) return "🥈 EXCELLENT DEBRIS HUNTER! 🥈";
+    if (rating >= 2) return "🥉 GOOD SPACE MISSION! 🥉";
+    return "Keep practicing, Space Cadet!";
+  };
+
+  const starRating = getStarRating(score);
+  const performanceMessage = getPerformanceMessage(starRating);
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-8">
       <div className="text-center mb-8">
         <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-6">
           Mission Complete!
         </h2>
+        
+        {/* Star Rating Display */}
+        <div className="mb-8">
+          <div className="flex justify-center items-center gap-2 mb-4">
+            {renderStars(starRating)}
+          </div>
+          <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400 mb-2">
+            {performanceMessage}
+          </p>
+          <p className="text-lg text-gray-300">
+            You earned <span className="text-yellow-400 font-bold">{starRating}</span> out of 3 stars!
+          </p>
+        </div>
         
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 max-w-md mx-auto">
           <h3 className="text-2xl font-bold text-white mb-4">Mission Statistics</h3>
@@ -43,8 +110,24 @@ export default function EndGame() {
             </div>
             
             <div className="border-t border-gray-600 pt-3 flex justify-between text-xl font-bold">
-              <span className="text-white">Current Score:</span>
+              <span className="text-white">Final Score:</span>
               <span className="text-yellow-400">{score}</span>
+            </div>
+            
+            {/* Score breakdown */}
+            <div className="border-t border-gray-600 pt-3 text-sm text-gray-300">
+              <p>Score Targets:</p>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <div className={score >= 500 ? 'text-green-400' : 'text-gray-500'}>
+                  ⭐⭐ 500+ points
+                </div>
+                <div className={score >= 750 ? 'text-green-400' : 'text-gray-500'}>
+                  ⭐⭐🌟 750+ points
+                </div>
+                <div className={`col-span-2 ${score >= 1000 ? 'text-green-400' : 'text-gray-500'}`}>
+                  ⭐⭐⭐ 1000+ points
+                </div>
+              </div>
             </div>
           </div>
         </div>

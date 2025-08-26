@@ -11,8 +11,8 @@ export default function PlanetSelection() {
   const planets: { id: Planet; name: string; tool: string; color: string; size: string }[] = [
     { id: "mars", name: "Mars", tool: "Space Net", color: "bg-red-500", size: "w-20 h-20" },
     { id: "jupiter", name: "Jupiter", tool: "Magnetic Collector", color: "bg-orange-400", size: "w-32 h-32" },
-    { id: "saturn", name: "Saturn", tool: "Robotic Hand", color: "bg-yellow-400", size: "w-28 h-28" },
-    { id: "uranus", name: "Uranus", tool: "Laser Collector", color: "bg-cyan-400", size: "w-24 h-24" }
+    { id: "saturn", name: "Saturn", tool: "Robotic Hand", color: "bg-yellow-400", size: "w-24 h-24" },
+    { id: "uranus", name: "Uranus", tool: "Laser Collector", color: "bg-cyan-400", size: "w-20 h-20" }
   ];
 
   const getToolForPlanet = (planetId: Planet) => {
@@ -107,27 +107,29 @@ export default function PlanetSelection() {
             <div
               key={planet.id}
               onClick={() => handlePlanetSelect(planet.id)}
-              className={`relative flex flex-col items-center p-6 rounded-xl transition-all duration-300 ${
+              className={`relative flex flex-col items-center p-8 rounded-xl transition-all duration-300 min-h-[200px] ${
                 isCorrectPlanet 
                   ? 'cursor-pointer hover:scale-105 bg-gradient-to-br from-green-800/30 to-green-900/30 border-2 border-green-400'
                   : 'opacity-50 cursor-not-allowed bg-gray-800/30 border border-gray-600'
               }`}
             >
-              {/* Planet */}
-              <div className={`${planet.color} ${planet.size} rounded-full mb-4 shadow-2xl relative`}>
-                {planet.id === "saturn" && (
-                  <div className="absolute inset-0 border-4 border-yellow-300 rounded-full transform rotate-12 scale-150"></div>
-                )}
-                {planet.id === "jupiter" && (
-                  <div className="absolute inset-0 bg-gradient-to-b from-orange-300 to-orange-600 rounded-full">
-                    <div className="absolute top-1/3 left-0 right-0 h-2 bg-orange-700/50"></div>
-                    <div className="absolute top-1/2 left-0 right-0 h-1 bg-orange-800/50"></div>
-                  </div>
-                )}
+              {/* Planet container with extra space for Saturn rings */}
+              <div className="relative mb-6 flex items-center justify-center" style={{ minHeight: '140px' }}>
+                <div className={`${planet.color} ${planet.size} rounded-full shadow-2xl relative`}>
+                  {planet.id === "saturn" && (
+                    <div className="absolute inset-0 border-3 border-yellow-300 rounded-full transform rotate-12 scale-125"></div>
+                  )}
+                  {planet.id === "jupiter" && (
+                    <div className="absolute inset-0 bg-gradient-to-b from-orange-300 to-orange-600 rounded-full">
+                      <div className="absolute top-1/3 left-0 right-0 h-2 bg-orange-700/50"></div>
+                      <div className="absolute top-1/2 left-0 right-0 h-1 bg-orange-800/50"></div>
+                    </div>
+                  )}
+                </div>
               </div>
               
-              <h3 className="text-xl font-bold text-white mb-2">{planet.name}</h3>
-              <p className="text-sm text-gray-300 text-center">Tool: {planet.tool}</p>
+              <h3 className="text-lg font-bold text-white mb-2">{planet.name}</h3>
+              <p className="text-xs text-gray-300 text-center">Tool: {planet.tool}</p>
               
               {isCorrectPlanet && (
                 <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors text-sm font-bold">

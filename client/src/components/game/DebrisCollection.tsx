@@ -418,6 +418,85 @@ export default function DebrisCollection() {
     // Tool indicator
     ctx.font = '16px Arial';
     ctx.fillText(`Tool: ${selectedTool?.replace('-', ' ')}`, 20, 70);
+    
+    // Legend - Bottom Left
+    const legendY = CANVAS_HEIGHT - 180;
+    
+    // Legend background
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    ctx.fillRect(10, legendY - 10, 200, 170);
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(10, legendY - 10, 200, 170);
+    
+    // Legend title
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 14px Arial';
+    ctx.fillText('LEGEND', 20, legendY + 10);
+    
+    // Debris section
+    ctx.fillStyle = '#00FF00';
+    ctx.font = 'bold 12px Arial';
+    ctx.fillText('DEBRIS (Collect):', 20, legendY + 35);
+    
+    // Draw debris examples
+    let exampleY = legendY + 50;
+    
+    // Nut (hexagon)
+    ctx.fillStyle = '#C0C0C0';
+    drawHexagon(ctx, 35, exampleY, 6);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '10px Arial';
+    ctx.fillText('Nut', 50, exampleY + 4);
+    
+    // Screw
+    ctx.fillStyle = '#B8860B';
+    ctx.fillRect(90 - 3, exampleY - 8, 6, 16);
+    ctx.fillRect(90 - 8, exampleY - 4, 16, 4);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText('Screw', 110, exampleY + 4);
+    
+    // Bolt
+    exampleY += 20;
+    ctx.fillStyle = '#708090';
+    ctx.fillRect(30 - 4, exampleY - 8, 8, 16);
+    ctx.fillRect(30 - 8, exampleY - 8, 16, 6);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText('Bolt', 50, exampleY + 4);
+    
+    // Glass/Metal pieces
+    ctx.fillStyle = '#87CEEB';
+    ctx.fillRect(90 - 4, exampleY - 4, 8, 8);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText('Glass', 110, exampleY + 4);
+    
+    // Satellites section
+    exampleY += 25;
+    ctx.fillStyle = '#FF4444';
+    ctx.font = 'bold 12px Arial';
+    ctx.fillText('SATELLITES (Avoid):', 20, exampleY);
+    
+    // Draw satellite example
+    exampleY += 15;
+    ctx.fillStyle = '#C0C0C0';
+    ctx.fillRect(30 - 15, exampleY - 6, 30, 12);
+    
+    // Solar panels
+    ctx.fillStyle = '#4169E1';
+    ctx.fillRect(30 - 20, exampleY - 6, 5, 12);
+    ctx.fillRect(30 + 15, exampleY - 6, 5, 12);
+    
+    // Antenna
+    ctx.strokeStyle = '#C0C0C0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(30, exampleY - 6);
+    ctx.lineTo(30, exampleY - 15);
+    ctx.stroke();
+    
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '10px Arial';
+    ctx.fillText('Satellite', 60, exampleY + 4);
   };
 
   return (
@@ -447,7 +526,7 @@ export default function DebrisCollection() {
 
       <div className="mt-4 text-center">
         <p className="text-gray-300 text-sm">Use WASD or Arrow Keys to move your tool</p>
-        <p className="text-gray-400 text-xs">Collect debris, avoid satellites!</p>
+        <p className="text-gray-400 text-xs">Check the legend in the game for debris vs satellite shapes!</p>
       </div>
     </div>
   );
